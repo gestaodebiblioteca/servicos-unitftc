@@ -4,6 +4,14 @@ import plotly.express as px  # type: ignore
 from pages.minha_biblioteca import minha_biblioteca
 from pages.ebsco import page_ebsco
 
+# Inicializar st.session_state.show_data
+if 'show_data' not in st.session_state:
+    st.session_state.show_data = False
+
+# Função para alternar a visibilidade dos dados
+def toggle_data_visibility():
+    st.session_state.show_data = not st.session_state.show_data
+
 # Configurar a página
 st.set_page_config(layout="wide")
 
@@ -15,10 +23,8 @@ page = st.sidebar.selectbox("Escolha a Página", ["Minha Biblioteca", "EBSCO", "
 
 if page == "Minha Biblioteca":
     minha_biblioteca()
+
 elif page == "EBSCO":
     page_ebsco()
-    # Botões para mostrar e esconder dados
-    st.sidebar.button("Mostrar Dados", on_click=toggle_data_visibility)
-    #if st.session_state.show_data:
-        #st.write(df_detalhado)
-        #st.sidebar.button("Esconder Dados", on_click=toggle_data_visibility)
+
+# Botões para mostrar e esconder dados

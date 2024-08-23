@@ -36,10 +36,6 @@ def minha_biblioteca():
                            title="Visualizações de Páginas por Dispositivo")
         st.plotly_chart(fig_page)
 
-    # Botões para mostrar e esconder dados
-    if st.sidebar.button("Mostrar Dados"):
-        st.session_state.show_data = True
-    if st.session_state.show_data:
-        st.write(df_detalhado)
-    if st.sidebar.button("Esconder Dados"):
-        st.session_state.show_data = False
+    # Mostrar dados detalhados se a opção estiver ativa
+    #if st.session_state.show_data:
+       # st.write(df_detalhado)
