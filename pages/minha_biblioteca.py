@@ -8,26 +8,12 @@ df_detalhado = pd.read_csv('dados_categorias.csv')
 df_stundents_views = pd.read_csv('StudentsViews.csv')
 df_page_views = pd.read_csv('PageViews.csv')
 
-# Inicializar o estado da sessão se não estiver definido
-if 'show_data' not in st.session_state:
-    st.session_state.show_data = False
-
-# Função para exibir a página "Minha Biblioteca"
 def minha_biblioteca():
-    # Configurar a sidebar
-    st.sidebar.title("Opções")
-    
-    # Checkbox para mostrar ou esconder os dados
-    if st.sidebar.checkbox("Mostrar Dados", value=st.session_state.show_data):
-        st.session_state.show_data = True
-    else:
-        st.session_state.show_data = False
+    st.write("Visualização dos dados da Minha Biblioteca")
 
-    # Dividir a tela em quatro colunas
     col1, col2 = st.columns(2)
     col3, col4 = st.columns(2)
 
-    # Gráficos e tabelas
     with col1:
         st.subheader("Total de Livros por Editora")
         fig_total = px.bar(df, x="Editora", y="Total", title="Total de Livros por Editora")
@@ -51,10 +37,23 @@ def minha_biblioteca():
                            title="Visualizações de Páginas por Dispositivo")
         st.plotly_chart(fig_page)
 
-    # Mostrar ou esconder dados com base na seleção do checkbox
-    if st.session_state.show_data:
-        st.write(df)
+    st.write("Os dados apresentados são baseados nas análises recentes da biblioteca.")
 
-# Executar a função
+    # Inicializar o estado da sessão se não estiver definido
+    if 'show_data' not in st.session_state:
+        st.session_state.show_data = False
+
+    # Botões para mostrar e esconder dados
+    if st.sidebar.button("Mostrar Dados"):
+        st.session_state.show_data = True
+
+    if st.sidebar.button("Esconder Dados"):
+        st.session_state.show_data = False
+
+    # Mostrar ou esconder dados com base no estado
+    if st.session_state.show_data:
+        st.write(df_detalhado)
+
+# Não executar a função se importado
 if __name__ == "__main__":
     minha_biblioteca()

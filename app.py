@@ -1,6 +1,4 @@
 import streamlit as st
-import pandas as pd
-import plotly.express as px  # type: ignore
 from pages.minha_biblioteca import minha_biblioteca
 from pages.ebsco import page_ebsco
 from pages.uptodat import page_uptodat
@@ -16,22 +14,17 @@ def toggle_data_visibility():
 # Configurar a página
 st.set_page_config(layout="wide")
 
-# Adicionar CSS e cabeçalho
-# (Coloque o código CSS e o cabeçalho aqui, ou mova para um arquivo separado se preferir)
-
 # Seletor de páginas
-page = st.sidebar.selectbox("Escolha a Página", ["Minha Biblioteca", "EBSCO", "UpTodat"])
+page = st.sidebar.selectbox("Escolha a Página", ["EBSCO", "Minha Biblioteca", "UpTodat"])
 
-if page == "Minha Biblioteca":
-    minha_biblioteca()
-    st.sidebar.button("Mostrar Dados", on_click=toggle_data_visibility)
-
-elif page == "EBSCO":
+# Mostrar a página correspondente
+if page == "EBSCO":
     page_ebsco()
-
+elif page == "Minha Biblioteca":
+    minha_biblioteca()
 elif page == "UpTodat":
     page_uptodat()
 
-
-
-# Botões para mostrar e esconder dados
+# Exibir dados com base no estado
+if st.session_state.show_data:
+    st.write("Dados Exibidos:")
